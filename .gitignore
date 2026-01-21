@@ -20,6 +20,7 @@ target/
 *.iml
 *.ipr
 *.yml
+.env
 
 ### NetBeans ###
 /nbproject/private/
@@ -33,3 +34,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Ignore ###
+
+!docker-compose.yml

@@ -1,13 +1,9 @@
 
-## Restaurant Management API - Database (MySQL)
-
----
+# Restaurant Management API - Database (MySQL)
 
 This document aims to describe how to create the project database, including security, tables, products, and orders.
 
----
-
-### Prerequisites
+## Prerequisites
 
 - MySQL installed (version 8.0)
 - MySQL user with permissions for:
@@ -17,13 +13,11 @@ This document aims to describe how to create the project database, including sec
     - REFERENCE
 - Any MySQL client that allows running SQL statements
 
----
-
-### Create the Database (using Docker)
+## Create the Database (using Docker)
 
 In this project, the MySQL database runs inside a Docker container.
 
-#### Using docker-compose
+### Using docker-compose
 
 The configuration is in `restaurant-docker/docker-compose.yml`
 
@@ -62,7 +56,7 @@ Start it with: `docker compose up -d`
 
 ---
 
-### General structure
+## General structure
 
 The database is divided into five modules:
 
@@ -71,8 +65,6 @@ The database is divided into five modules:
 3. Products (dishes, categories, ingredients, allergens)
 4. Orders (order)
 5. Invoicing  (invoice)
-
----
 
 ## Table Descriptions
 

@@ -51,9 +51,7 @@ Start it with: `docker compose up -d`
 
 ### Database Schema Design (E/R Diagram)
 
-![Entity-Relationship Diagram](assets/restaurant-erd.png)
-
-
+![Entity-Relationship Diagram After](assets/restaurant_erda.png)
 ---
 
 ## General structure
@@ -178,7 +176,7 @@ CREATE TABLE users(
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME NULL ON UPDATE CURRENT_TIMESTAMP
 );
-CREATE TABLE role(
+CREATE TABLE roles(
     id INT AUTO_INCREMENT PRIMARY KEY ,
     name VARCHAR(50) NOT NULL UNIQUE ,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -195,7 +193,7 @@ CREATE TABLE user_role(
         ON DELETE CASCADE,
     CONSTRAINT fk_role
         FOREIGN KEY (role_id)
-        REFERENCES role(id)
+        REFERENCES roles(id)
         ON DELETE CASCADE
 );
 ```
@@ -233,15 +231,12 @@ CREATE TABLE table_session (
 
 ```mysql
 CREATE TABLE category (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
+    id INT AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE dish (
     id INT AUTO_INCREMENT PRIMARY KEY,
     category_id INT NULL,
-    name VARCHAR(150) NOT NULL,
-    description TEXT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     available BOOLEAN NOT NULL DEFAULT TRUE,
     image_path VARCHAR(500) NULL,
@@ -261,8 +256,7 @@ CREATE TABLE dish (
 );
 
 CREATE TABLE ingredient (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL UNIQUE
+    id INT AUTO_INCREMENT PRIMARY KEY
 );
 
 CREATE TABLE allergen (
@@ -271,30 +265,30 @@ CREATE TABLE allergen (
 );
 
 CREATE TABLE ingredient_dish (
-    id_ingredient INT NOT NULL,
-    id_dish INT NOT NULL,
+    ingredient_id INT NOT NULL,
+    dish_id INT NOT NULL,
 
-    PRIMARY KEY (id_ingredient, id_dish),
+    PRIMARY KEY (ingredient_id, dish_id),
     CONSTRAINT  fk_ingredient
-        FOREIGN KEY (id_ingredient) REFERENCES ingredient(id)
+        FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
         ON DELETE CASCADE,
     CONSTRAINT fk_dish
-        FOREIGN KEY (id_dish) REFERENCES dish(id)
+        FOREIGN KEY (dish_id) REFERENCES dish(id)
         ON DELETE CASCADE
 );
 
 CREATE TABLE dish_allergen (
-    id_dish INT NOT NULL,
-    id_allergen INT NOT NULL,
+    dish_id INT NOT NULL,
+    allergen_id INT NOT NULL,
     
-    PRIMARY KEY (id_dish, id_allergen),
+    PRIMARY KEY (dish_id, allergen_id),
     
     CONSTRAINT fk_allergen_dish
-        FOREIGN KEY (id_dish) REFERENCES dish(id)
+        FOREIGN KEY (dish_id) REFERENCES dish(id)
         ON DELETE CASCADE,
     
     CONSTRAINT fk_allergen
-        FOREIGN KEY (id_allergen) REFERENCES allergen(id)
+        FOREIGN KEY (allergen_id) REFERENCES allergen(id)
         ON DELETE CASCADE
 );
 
@@ -363,5 +357,78 @@ CREATE TABLE invoice (
     CONSTRAINT fk_invoice_user
         FOREIGN KEY (created_by) REFERENCES users(id)
         ON DELETE SET NULL
+);
+```
+
+### Translation Tables Structure
+
+- Category translation table
+
+```mysql
+CREATE TABLE category_translation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    lang CHAR(2) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+
+    UNIQUE KEY category_language (category_id, lang),
+
+    CONSTRAINT fk_category_translation
+        FOREIGN KEY (category_id) REFERENCES category(id)
+        ON DELETE CASCADE
+);
+```
+
+- Dish translation table
+
+```mysql
+CREATE TABLE dish_translation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dish_id INT NOT NULL,
+    lang CHAR(2) NOT NULL,
+    name VARCHAR(150) NOT NULL,
+    description TEXT NOT NULL,
+
+    UNIQUE KEY dish_language(dish_id, lang),
+
+    CONSTRAINT fk_dish_translation
+    FOREIGN KEY (dish_id) REFERENCES dish(id)
+        ON DELETE CASCADE
+);
+```
+
+- Ingredient translation
+
+```mysql
+CREATE TABLE ingredient_translation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ingredient_id INT NOT NULL,
+    lang CHAR(2) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    
+    UNIQUE KEY ingredient_language (ingredient_id, lang),
+    UNIQUE KEY uk_name_lang (name, lang),
+    
+    CONSTRAINT fk_ingredient_translation
+        FOREIGN KEY (ingredient_id) REFERENCES ingredient(id)
+        ON DELETE CASCADE
+);
+```
+
+- Allergen translation
+
+```mysql
+CREATE TABLE allergen_translation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    allergen_id INT NOT NULL,
+    lang CHAR(2) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+
+    UNIQUE KEY allergen_language (allergen_id, lang),
+    UNIQUE KEY uk_name_lang (name, lang),
+
+    CONSTRAINT fk_allergen_translation
+        FOREIGN KEY (allergen_id) REFERENCES allergen(id)
+        ON DELETE CASCADE
 );
 ```

@@ -1,4 +1,4 @@
-package com.gabriel.springboot.app.menuflow.dto.response;
+package com.gabriel.springboot.app.menuflow.models.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

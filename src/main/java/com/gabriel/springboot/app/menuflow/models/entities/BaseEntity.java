@@ -1,4 +1,4 @@
-package com.gabriel.springboot.app.menuflow.entities;
+package com.gabriel.springboot.app.menuflow.models.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;

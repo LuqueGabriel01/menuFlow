@@ -51,7 +51,7 @@ Start it with: `docker compose up -d`
 
 ### Database Schema Design (E/R Diagram)
 
-![Entity-Relationship Diagram After](assets/restaurant_erda.png)
+![Entity-Relationship Diagram After](assets/restaurant_erd.png)
 ---
 
 ## General structure
@@ -342,7 +342,7 @@ CREATE TABLE order_item(
 
 CREATE TABLE invoice (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT NOT NULL,
+    order_id INT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
     paid_at DATETIME NULL,
     payment_method VARCHAR(50) NULL,
@@ -352,7 +352,7 @@ CREATE TABLE invoice (
     
     CONSTRAINT fk_invoice_order
         FOREIGN KEY (order_id) REFERENCES orders(id)
-        ON DELETE CASCADE,
+        ON DELETE SET NULL ,
     
     CONSTRAINT fk_invoice_user
         FOREIGN KEY (created_by) REFERENCES users(id)
@@ -390,6 +390,7 @@ CREATE TABLE dish_translation (
     description TEXT NOT NULL,
 
     UNIQUE KEY dish_language(dish_id, lang),
+    UNIQUE KEY uk_name_lang (name, lang),
 
     CONSTRAINT fk_dish_translation
     FOREIGN KEY (dish_id) REFERENCES dish(id)

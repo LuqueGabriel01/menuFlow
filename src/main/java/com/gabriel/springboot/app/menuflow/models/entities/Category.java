@@ -47,7 +47,7 @@ public class Category{
     }
 
     public void addDish(Dish dish){
-        if(this.dishes.contains(dish)){
+        if(!this.dishes.contains(dish)){
             this.dishes.add(dish);
             dish.assignCategory(this);
         }

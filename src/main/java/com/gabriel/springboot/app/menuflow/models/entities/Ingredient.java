@@ -59,4 +59,8 @@ public class Ingredient {
         IngredientTranslation translation = IngredientTranslation.of(this, lang, name);
         translations.add(translation);
     }
+
+    public List<IngredientTranslation> getTranslations() {
+        return Collections.unmodifiableList(translations);
+    }
 }

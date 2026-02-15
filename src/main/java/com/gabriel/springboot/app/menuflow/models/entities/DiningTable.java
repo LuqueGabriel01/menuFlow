@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -60,5 +61,9 @@ public class DiningTable {
     public void addSession(TableSession session){
         this.sessions.add(session);
         session.assignTable(DiningTable.this);
+    }
+
+    public List<TableSession> getSessions(){
+        return Collections.unmodifiableList(this.sessions);
     }
 }

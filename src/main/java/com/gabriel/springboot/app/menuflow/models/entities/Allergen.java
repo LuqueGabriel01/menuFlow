@@ -46,17 +46,25 @@ public class Allergen {
     }
 
     public void addDish(Dish dish){
-        this.dishes.add(dish);
-        dish.addAllergen(this);
+        if (!this.dishes.contains(dish)) {
+            this.dishes.add(dish);
+            dish.addAllergen(this);
+        }
     }
 
     public void removeDish(Dish dish){
-        this.dishes.remove(dish);
-        dish.removeAllergen(this);
+        if (this.dishes.contains(dish)) {
+            this.dishes.remove(dish);
+            dish.removeAllergen(this);
+        }
     }
 
     public void addTranslation(String lang, String name){
         AllergenTranslation translation = AllergenTranslation.of(this, lang, name);
         translations.add(translation);
+    }
+
+    public List<AllergenTranslation> getTranslations() {
+        return Collections.unmodifiableList(translations);
     }
 }

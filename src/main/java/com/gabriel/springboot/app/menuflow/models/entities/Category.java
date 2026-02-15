@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -46,7 +47,17 @@ public class Category{
     }
 
     public void addDish(Dish dish){
-        this.dishes.add(dish);
-        dish.assignCategory(this);
+        if(!this.dishes.contains(dish)){
+            this.dishes.add(dish);
+            dish.assignCategory(this);
+        }
+    }
+
+    public List<Dish> getDishes(){
+        return Collections.unmodifiableList(this.dishes);
+    }
+
+    public List<CategoryTranslation> getTranslations(){
+        return Collections.unmodifiableList(this.translations);
     }
 }

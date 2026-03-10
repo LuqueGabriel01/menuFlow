@@ -8,11 +8,13 @@ import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Component
@@ -79,6 +81,19 @@ public class JwtUtil {
 
     public String getUsernameFromToken(String token) {
         return getClaimsFromToken(token).getSubject();
+    }
+
+    public Collection<GrantedAuthority> getAuthoritiesFromToken(String token) {
+        Claims claims = getClaimsFromToken(token);
+        Object authorities = claims.get(AUTHORITIES_KEY);
+
+        if (authorities instanceof List<?>){
+            return ((List<?>) authorities).stream()
+                    .map(role -> new SimpleGrantedAuthority(String.valueOf(role)))
+                    .collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
     }
 
     private Claims getClaimsFromToken(String token) {

@@ -14,6 +14,7 @@ public class SecurityConstants {
     // --- HTTP Headers ---
     public static final String HEADER_AUTHORIZATION = "Authorization";
     public static final String TOKEN_PREFIX = "Bearer ";
+    public static final String TOKEN_TYPE = "Bearer";
     public static final String APPLICATION_JSON = "application/json";
 
     // --- Public api ---

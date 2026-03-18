@@ -9,4 +9,8 @@ public class ExceptionConstants {
     public static final String USER_DISABLED_MESSAGE = "User already disabled";
     public static final String INVALID_INVOICE_MESSAGE = "Invoice is null";
     public static final String INVALID_PRICE_MESSAGE = "Price must be greater than zero";
+    public static final String USER_NOT_FOUND_MESSAGE = "User not found";
+    public static final String INVALID_CREDENTIALS_MESSAGE = "Invalid username or password";
+    public static final String TABLE_NOT_FOUND_MESSAGE = "Table not found";
+    public static final String TABLE_NOT_AVAILABLE_MESSAGE = "Table not available";
 }

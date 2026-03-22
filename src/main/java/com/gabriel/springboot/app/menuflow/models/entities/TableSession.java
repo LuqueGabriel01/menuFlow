@@ -1,11 +1,11 @@
 package com.gabriel.springboot.app.menuflow.models.entities;
 
-import com.gabriel.springboot.app.menuflow.models.entities.enums.RoleName;
 import com.gabriel.springboot.app.menuflow.models.entities.enums.SessionStatus;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,7 +21,11 @@ import java.util.List;
                 @Index(name = "idx_status", columnList = "status")
         }
 )
-public class TableSession extends BaseEntity {
+public class TableSession{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "table_id", nullable = false)
@@ -34,6 +38,10 @@ public class TableSession extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "opened_by")
     private User openedBy;
+
+    @CreationTimestamp
+    @Column(name = "opened_at", updatable = false)
+    private LocalDateTime openedAt;
 
     @Column(name = "closed_at")
     private LocalDateTime closedAt;

@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SecurityConstants {
 
-    public static final String TOKEN_REQUIRED_MESSAGE = "{\"success\":false,\"message\":\"Not authenticated. Token required.\"}";
-    public static final String ACCESS_DENIED_MESSAGE = "{\"success\":false,\"message\":\"Access denied. Insufficient permissions.\"}";
+    public static final String ACCESS_DENIED_MESSAGE = "Access denied. Insufficient permissions.";
 
     // --- JWT Claims Keys ---
     public static final String AUTHORITIES_KEY = "authorities";

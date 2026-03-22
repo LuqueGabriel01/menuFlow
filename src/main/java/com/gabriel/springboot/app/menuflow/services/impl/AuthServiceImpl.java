@@ -1,7 +1,9 @@
 package com.gabriel.springboot.app.menuflow.services.impl;
 
 import com.gabriel.springboot.app.menuflow.exceptions.ResourceNotFoundException;
+import com.gabriel.springboot.app.menuflow.mappers.UserMapper;
 import com.gabriel.springboot.app.menuflow.models.dto.request.LoginRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.RegisterRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.request.TableLoginRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.AuthResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.DiningTable;
@@ -11,12 +13,14 @@ import com.gabriel.springboot.app.menuflow.models.entities.User;
 import com.gabriel.springboot.app.menuflow.models.entities.enums.RoleName;
 import com.gabriel.springboot.app.menuflow.models.entities.enums.SessionStatus;
 import com.gabriel.springboot.app.menuflow.repositories.DiningTableRepository;
+import com.gabriel.springboot.app.menuflow.repositories.RoleRepository;
 import com.gabriel.springboot.app.menuflow.repositories.TableSessionRepository;
 import com.gabriel.springboot.app.menuflow.repositories.UserRepository;
 import com.gabriel.springboot.app.menuflow.security.JwtUtil;
 import com.gabriel.springboot.app.menuflow.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import com.gabriel.springboot.app.menuflow.exceptions.BadRequestException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.GrantedAuthority;
@@ -41,8 +45,10 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final TableSessionRepository tableSessionRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
     private final DiningTableRepository diningTableRepository;
     private final JwtUtil jwtUtil;
+    private final UserMapper userMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -102,9 +108,27 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
+    @Override
+    @Transactional
+    public void register(RegisterRequest request){
+
+        if (userRepository.existsByUsername(request.username())) {
+            throw new BadRequestException("That username is already taken");
+        }
+
+        String encodedPassword = passwordEncoder.encode(request.password());
+
+        Role userRole = roleRepository.findByName(RoleName.ROLE_USER).orElseThrow();
+
+        User user = userMapper.toEntity(request, encodedPassword, userRole);
+
+        userRepository.save(user);
+        log.info("Newly registered user: {}", user.getUsername());
+    }
+
     private Collection<GrantedAuthority> convertRolesToAuthorities(Set<Role> roles) {
         return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(PREFIX_ROLE + role.getName().name()))
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
                 .collect(Collectors.toList());
     }
 

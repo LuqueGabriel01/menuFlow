@@ -17,6 +17,5 @@ if [[ ! \$commit_msg =~ \$pattern ]]; then
 fi
 EOF
 
-# Darle permisos
 chmod +x .git/hooks/commit-msg
 echo "Hooks installed successfully!"

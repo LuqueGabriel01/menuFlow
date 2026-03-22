@@ -1,5 +1,6 @@
 package com.gabriel.springboot.app.menuflow.security;
 
+import com.gabriel.springboot.app.menuflow.models.dto.response.ApiResponse;
 import com.gabriel.springboot.app.menuflow.security.filter.JwtAuthenticationFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
@@ -50,6 +52,7 @@ public class SpringSecurityConfig {
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.POST, REGISTER_URL).hasAnyRole(ROLE_ADMIN)
                         .requestMatchers(API_AUTH).permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, ANY_PATH).permitAll()
                         .requestMatchers(SWAGGER_UI_PATH, API_DOCS_PATH).permitAll()
@@ -70,12 +73,14 @@ public class SpringSecurityConfig {
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                             response.setContentType(APPLICATION_JSON);
-                            response.getWriter().write(TOKEN_REQUIRED_MESSAGE);
+                            String json = new ObjectMapper().writeValueAsString(ApiResponse.error(authException.getMessage()));
+                            response.getWriter().write(json);
                         })
                         .accessDeniedHandler((request, response, accessDeniedException) -> {
                             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
                             response.setContentType(APPLICATION_JSON);
-                            response.getWriter().write(ACCESS_DENIED_MESSAGE);
+                            String json = new ObjectMapper().writeValueAsString(ApiResponse.error(ACCESS_DENIED_MESSAGE));
+                            response.getWriter().write(json);
                         })
                 )
                 .build();

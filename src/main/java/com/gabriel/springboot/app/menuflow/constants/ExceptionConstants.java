@@ -13,4 +13,7 @@ public class ExceptionConstants {
     public static final String INVALID_CREDENTIALS_MESSAGE = "Invalid username or password";
     public static final String TABLE_NOT_FOUND_MESSAGE = "Table not found";
     public static final String TABLE_NOT_AVAILABLE_MESSAGE = "Table not available";
+    public static final String VALIDATION_ERROR_MESSAGE = "Validation error";
+    public static final String AUTHENTICATION_REQUIRED_MESSAGE = "Authentication required";
+    public static final String INTERNAL_ERROR_MESSAGE = "Internal error.";
 }

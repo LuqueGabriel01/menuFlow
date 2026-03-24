@@ -1,8 +1,9 @@
 package com.gabriel.springboot.app.menuflow.security;
 
-import com.gabriel.springboot.app.menuflow.models.dto.response.ApiResponse;
+import com.gabriel.springboot.app.menuflow.exceptions.handler.CustomAccessDenied;
+import com.gabriel.springboot.app.menuflow.exceptions.handler.CustomAuthenticationEntryPoint;
+
 import com.gabriel.springboot.app.menuflow.security.filter.JwtAuthenticationFilter;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,7 +20,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import tools.jackson.databind.ObjectMapper;
 
 import java.util.List;
 
@@ -31,9 +31,13 @@ import static com.gabriel.springboot.app.menuflow.constants.SecurityConstants.*;
 public class SpringSecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CustomAccessDenied accessDeniedHandler;
 
-    public SpringSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter) {
+    public SpringSecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter, CustomAuthenticationEntryPoint authenticationEntryPoint, CustomAccessDenied accessDeniedHandler1) {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+        this.accessDeniedHandler = accessDeniedHandler1;
     }
 
     @Bean
@@ -70,18 +74,8 @@ public class SpringSecurityConfig {
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling(e -> e
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            response.setContentType(APPLICATION_JSON);
-                            String json = new ObjectMapper().writeValueAsString(ApiResponse.error(authException.getMessage()));
-                            response.getWriter().write(json);
-                        })
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            response.setContentType(APPLICATION_JSON);
-                            String json = new ObjectMapper().writeValueAsString(ApiResponse.error(ACCESS_DENIED_MESSAGE));
-                            response.getWriter().write(json);
-                        })
+                        .authenticationEntryPoint(authenticationEntryPoint)
+                        .accessDeniedHandler(accessDeniedHandler)
                 )
                 .build();
     }

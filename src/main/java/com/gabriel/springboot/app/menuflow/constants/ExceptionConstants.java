@@ -16,4 +16,6 @@ public class ExceptionConstants {
     public static final String VALIDATION_ERROR_MESSAGE = "Validation error";
     public static final String AUTHENTICATION_REQUIRED_MESSAGE = "Authentication required";
     public static final String INTERNAL_ERROR_MESSAGE = "Internal error.";
+    public static final String DINING_TABLE_EXISTS_MESSAGE = "dining table already exists ";
+    public static final String TABLE_ACTIVE_MESSAGE = "table has active session";
 }

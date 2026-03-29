@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import static com.gabriel.springboot.app.menuflow.constants.ExceptionConstants.TABLE_NUMBER_NOT_NULL_MESSAGE;
+
 @Entity
 @Table(
         name = "dining_tables",
         uniqueConstraints = {
-                @UniqueConstraint(name = "number", columnNames = "number"),
-                @UniqueConstraint(name = "qr_code", columnNames = "qr_code")
+                @UniqueConstraint(name = "dining_table_number", columnNames = "number"),
+                @UniqueConstraint(name = "dining_table_qr_code", columnNames = "qr_code")
         }
 )
 @Getter
@@ -48,6 +50,13 @@ public class DiningTable {
         table.qrCode = qrCode;
         table.isActive = true;
         return table;
+    }
+
+    public void assignNumber(Integer number){
+        if (number == null) {
+            throw new IllegalArgumentException(TABLE_NUMBER_NOT_NULL_MESSAGE);
+        }
+        this.number = number;
     }
 
     public void disable(){

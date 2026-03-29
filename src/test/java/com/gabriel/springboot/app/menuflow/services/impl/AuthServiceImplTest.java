@@ -2,13 +2,10 @@ package com.gabriel.springboot.app.menuflow.services.impl;
 
 import com.gabriel.springboot.app.menuflow.exceptions.ResourceNotFoundException;
 import com.gabriel.springboot.app.menuflow.models.dto.request.LoginRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.TableLoginRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.AuthResponse;
-import com.gabriel.springboot.app.menuflow.models.entities.DiningTable;
 import com.gabriel.springboot.app.menuflow.models.entities.Role;
 import com.gabriel.springboot.app.menuflow.models.entities.User;
 import com.gabriel.springboot.app.menuflow.models.entities.enums.RoleName;
-import com.gabriel.springboot.app.menuflow.repositories.DiningTableRepository;
 import com.gabriel.springboot.app.menuflow.repositories.UserRepository;
 import com.gabriel.springboot.app.menuflow.security.JwtUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +31,6 @@ class AuthServiceImplTest {
 
     @Mock
     private UserRepository userRepository;
-
-    @Mock
-    private DiningTableRepository diningTableRepository;
 
     @Mock
     private PasswordEncoder passwordEncoder;

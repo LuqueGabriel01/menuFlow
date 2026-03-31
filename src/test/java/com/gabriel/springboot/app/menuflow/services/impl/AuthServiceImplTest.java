@@ -1,6 +1,5 @@
 package com.gabriel.springboot.app.menuflow.services.impl;
 
-import com.gabriel.springboot.app.menuflow.exceptions.ResourceNotFoundException;
 import com.gabriel.springboot.app.menuflow.models.dto.request.LoginRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.AuthResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.Role;
@@ -73,12 +72,12 @@ class AuthServiceImplTest {
     }
 
     @Test
-    @DisplayName("Login failed: User does not exist throws ResourceNotFoundException")
+    @DisplayName("Login failed: User does not exist throws BadCredentialsException")
     void login_UserNotFound_ThrowsException() {
 
         when(userRepository.findByUsername(anyString())).thenReturn(Optional.empty());
 
-        assertThrows(ResourceNotFoundException.class, () -> authService.login(loginRequest));
+        assertThrows(BadCredentialsException.class, () -> authService.login(loginRequest));
     }
 
     @Test

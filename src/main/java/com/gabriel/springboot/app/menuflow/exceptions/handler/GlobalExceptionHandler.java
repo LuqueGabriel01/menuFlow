@@ -1,5 +1,6 @@
 package com.gabriel.springboot.app.menuflow.exceptions.handler;
 
+import com.gabriel.springboot.app.menuflow.exceptions.BusinessException;
 import com.gabriel.springboot.app.menuflow.exceptions.ResourceNotFoundException;
 import com.gabriel.springboot.app.menuflow.exceptions.UserDisabledException;
 import com.gabriel.springboot.app.menuflow.models.dto.response.ErrorResponse;
@@ -104,4 +105,17 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<ErrorResponse> handleBusinessException(BusinessException ex, HttpServletRequest request) {
+        log.warn("Business error: {}", ex.getMessage());
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
 }

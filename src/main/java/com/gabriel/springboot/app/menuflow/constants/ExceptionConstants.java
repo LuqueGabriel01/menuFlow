@@ -19,4 +19,5 @@ public class ExceptionConstants {
     public static final String DINING_TABLE_EXISTS_MESSAGE = "dining table already exists ";
     public static final String TABLE_ACTIVE_MESSAGE = "table has active session";
     public static final String TABLE_NUMBER_NOT_NULL_MESSAGE = "Table number cannot be null";
+    public static final String DELETE_SUCCESS_MESSAGE = "Table deleted successfully";
 }

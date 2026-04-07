@@ -181,7 +181,7 @@ class DiningTableServiceImplTest {
     }
 
     @Test
-    @DisplayName("Should return Optional with TableResponse when table exists")
+    @DisplayName("Should return TableResponse when table exists")
     void getTableById() {
         DiningTable table = DiningTable.of(10, "qr");
 
@@ -191,9 +191,15 @@ class DiningTableServiceImplTest {
         when(diningTableMapper.toResponse(table))
                 .thenReturn(new TableResponse(1L, 10, true, "qr", null, true));
 
-        Optional<TableResponse> result =
+        TableResponse result =
                 diningTableService.getTableById(1L);
 
-        assertTrue(result.isPresent());
+        assertNotNull(result);
+        assertEquals(1L, result.id());
+        assertEquals(10, result.number());
+        assertEquals("qr", result.qrCode());
+
+        verify(diningTableRepository).findById(1L);
+        verify(diningTableMapper).toResponse(table);
     }
 }

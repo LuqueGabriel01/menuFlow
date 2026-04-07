@@ -4,6 +4,7 @@ import com.gabriel.springboot.app.menuflow.models.dto.response.ErrorResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
@@ -16,7 +17,11 @@ import java.io.IOException;
 import static com.gabriel.springboot.app.menuflow.constants.SecurityConstants.ACCESS_DENIED_MESSAGE;
 
 @Component
+@RequiredArgsConstructor
 public class CustomAccessDenied implements AccessDeniedHandler {
+
+    private final ObjectMapper objectMapper;
+
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, @NonNull AccessDeniedException accessDeniedException) throws IOException, ServletException {
         response.setStatus(HttpStatus.FORBIDDEN.value());
@@ -29,6 +34,6 @@ public class CustomAccessDenied implements AccessDeniedHandler {
                 .path(request.getRequestURI())
                 .build();
 
-        new ObjectMapper().writeValue(response.getOutputStream(), error);
+        objectMapper.writeValue(response.getOutputStream(), error);
     }
 }

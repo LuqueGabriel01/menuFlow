@@ -73,16 +73,18 @@ public class DiningTableServiceImpl implements DiningTableService {
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<TableResponse> getTableById(Long id) {
+    public TableResponse getTableById(Long id) {
         return diningTableRepository.findById(id)
-                .map(diningTableMapper::toResponse);
+                .map(diningTableMapper::toResponse)
+                .orElseThrow(() -> new ResourceNotFoundException(TABLE_NOT_FOUND_MESSAGE));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<TableResponse> getTableByQrCode(String qrCode) {
+    public TableResponse getTableByQrCode(String qrCode) {
         return diningTableRepository.findByQrCode(qrCode)
-                .map(diningTableMapper::toResponse);
+                .map(diningTableMapper::toResponse)
+                .orElseThrow(() -> new ResourceNotFoundException(TABLE_NOT_FOUND_MESSAGE));
     }
 
     @Override

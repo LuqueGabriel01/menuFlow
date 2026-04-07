@@ -26,7 +26,7 @@ public class SecurityConstants {
     public static final String REGISTER_URL = "/api/auth/register";
     public static final String DISHES_ANY_PATH = "/api/dishes/**";
     public static final String CATEGORIES_ANY_PATH = "/api/categories/**";
-    public static final String DINING_TABLES_ANY_PATH = "/api/dining-tables/**";
+    public static final String DINING_TABLES_ANY_PATH = "/api/tables/**";
     public static final String SESSION_ANY_PATH = "/api/sessions/**";
     public static final String KITCHEN_ANY_PATH = "/api/kitchen/**";
     public static final String INVOICE_ANY_PATH = "/api/invoices/**";

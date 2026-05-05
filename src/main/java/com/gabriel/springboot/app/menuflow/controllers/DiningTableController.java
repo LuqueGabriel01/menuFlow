@@ -5,14 +5,17 @@ import com.gabriel.springboot.app.menuflow.models.dto.request.UpdateTableRequest
 import com.gabriel.springboot.app.menuflow.models.dto.response.ApiResponse;
 import com.gabriel.springboot.app.menuflow.models.dto.response.TableResponse;
 import com.gabriel.springboot.app.menuflow.services.DiningTableService;
+import com.gabriel.springboot.app.menuflow.services.impl.QRCodeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +33,7 @@ import static com.gabriel.springboot.app.menuflow.constants.ExceptionConstants.D
 public class DiningTableController {
 
     private final DiningTableService diningTableService;
+    private final QRCodeService qrCodeService;
 
     @GetMapping
     @Operation(
@@ -131,5 +135,22 @@ public class DiningTableController {
         diningTableService.deleteTableById(id);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(ApiResponse.success(DELETE_SUCCESS_MESSAGE, null));
+    }
+
+    @GetMapping("/{id}/qr")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(
+            summary = "Generate a table QR code",
+            description = "Generate and download a PNG image of the table's QR code"
+    )
+    public ResponseEntity<byte[]> downloadQRCode(@PathVariable Long id) {
+        log.info("GET /api/tables/{}/qr - Generate QR code", id);
+
+        byte[] qrImage = qrCodeService.generateQRCodeForTable(id);
+
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_TYPE, "image/png")
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=mesa-" + id + "-qr.png")
+                .body(qrImage);
     }
 }

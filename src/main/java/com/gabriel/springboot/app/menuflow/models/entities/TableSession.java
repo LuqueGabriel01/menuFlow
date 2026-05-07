@@ -86,6 +86,10 @@ public class TableSession{
         this.openedBy = openedBy;
     }
 
+    public void openedAt(LocalDateTime openedAt) {
+        this.openedAt = openedAt;
+    }
+
     public void assignTable(DiningTable diningTable) {
         this.diningTable = diningTable;
     }

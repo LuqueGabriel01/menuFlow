@@ -1,4 +1,4 @@
-package com.gabriel.springboot.app.menuflow.models.dto.request.tableManagement;
+package com.gabriel.springboot.app.menuflow.models.dto.request.table;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;

@@ -1,8 +1,8 @@
 package com.gabriel.springboot.app.menuflow.services;
 
-import com.gabriel.springboot.app.menuflow.models.dto.request.CloseSessionRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.response.SessionDetailResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.SessionResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.CloseSessionRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.SessionDetailResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.SessionResponse;
 
 import java.util.List;
 

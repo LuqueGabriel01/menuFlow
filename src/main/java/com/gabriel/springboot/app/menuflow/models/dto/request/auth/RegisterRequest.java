@@ -1,4 +1,4 @@
-package com.gabriel.springboot.app.menuflow.models.dto.request;
+package com.gabriel.springboot.app.menuflow.models.dto.request.auth;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

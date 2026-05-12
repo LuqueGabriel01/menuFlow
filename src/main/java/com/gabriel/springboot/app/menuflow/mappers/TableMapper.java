@@ -1,8 +1,8 @@
 package com.gabriel.springboot.app.menuflow.mappers;
 
-import com.gabriel.springboot.app.menuflow.models.dto.response.OrderSummaryResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.SessionDetailResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.SessionResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.OrderSummaryResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.SessionDetailResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.SessionResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.Order;
 import com.gabriel.springboot.app.menuflow.models.entities.TableSession;
 import lombok.RequiredArgsConstructor;

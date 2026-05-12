@@ -1,10 +1,10 @@
 package com.gabriel.springboot.app.menuflow.controllers;
 
 import com.gabriel.springboot.app.menuflow.constants.ApiPaths;
-import com.gabriel.springboot.app.menuflow.models.dto.request.CloseSessionRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.CloseSessionRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.ApiResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.SessionDetailResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.SessionResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.SessionDetailResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.SessionResponse;
 import com.gabriel.springboot.app.menuflow.services.SessionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

@@ -3,9 +3,9 @@ package com.gabriel.springboot.app.menuflow.services.impl;
 import com.gabriel.springboot.app.menuflow.exceptions.BusinessException;
 import com.gabriel.springboot.app.menuflow.exceptions.ResourceNotFoundException;
 import com.gabriel.springboot.app.menuflow.mappers.DiningTableMapper;
-import com.gabriel.springboot.app.menuflow.models.dto.request.CreateTableRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.UpdateTableRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.response.TableResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.CreateTableRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.UpdateTableRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.TableResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.DiningTable;
 import com.gabriel.springboot.app.menuflow.models.entities.enums.SessionStatus;
 import com.gabriel.springboot.app.menuflow.repositories.DiningTableRepository;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static com.gabriel.springboot.app.menuflow.constants.ExceptionConstants.*;

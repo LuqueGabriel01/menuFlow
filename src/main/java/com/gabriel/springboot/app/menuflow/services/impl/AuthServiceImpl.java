@@ -2,10 +2,10 @@ package com.gabriel.springboot.app.menuflow.services.impl;
 
 import com.gabriel.springboot.app.menuflow.exceptions.ResourceNotFoundException;
 import com.gabriel.springboot.app.menuflow.mappers.UserMapper;
-import com.gabriel.springboot.app.menuflow.models.dto.request.LoginRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.RegisterRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.TableLoginRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.response.AuthResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.request.auth.LoginRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.auth.RegisterRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.TableLoginRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.response.auth.AuthResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.DiningTable;
 import com.gabriel.springboot.app.menuflow.models.entities.Role;
 import com.gabriel.springboot.app.menuflow.models.entities.TableSession;

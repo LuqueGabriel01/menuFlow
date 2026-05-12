@@ -1,9 +1,9 @@
 package com.gabriel.springboot.app.menuflow.controllers;
 
-import com.gabriel.springboot.app.menuflow.models.dto.request.CreateTableRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.UpdateTableRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.CreateTableRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.UpdateTableRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.ApiResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.TableResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.TableResponse;
 import com.gabriel.springboot.app.menuflow.services.DiningTableService;
 import com.gabriel.springboot.app.menuflow.services.impl.QRCodeService;
 import io.swagger.v3.oas.annotations.Operation;

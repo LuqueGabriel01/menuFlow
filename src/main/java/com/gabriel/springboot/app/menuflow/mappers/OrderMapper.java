@@ -1,6 +1,6 @@
 package com.gabriel.springboot.app.menuflow.mappers;
 
-import com.gabriel.springboot.app.menuflow.models.dto.response.OrderSummaryResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.OrderSummaryResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.Order;
 import org.springframework.stereotype.Component;
 

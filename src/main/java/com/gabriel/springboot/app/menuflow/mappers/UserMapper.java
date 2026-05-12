@@ -1,6 +1,6 @@
 package com.gabriel.springboot.app.menuflow.mappers;
 
-import com.gabriel.springboot.app.menuflow.models.dto.request.RegisterRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.auth.RegisterRequest;
 import com.gabriel.springboot.app.menuflow.models.entities.Role;
 import com.gabriel.springboot.app.menuflow.models.entities.User;
 import org.springframework.stereotype.Component;

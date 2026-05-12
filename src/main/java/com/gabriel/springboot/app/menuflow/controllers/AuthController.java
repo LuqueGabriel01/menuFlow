@@ -1,10 +1,10 @@
 package com.gabriel.springboot.app.menuflow.controllers;
 
-import com.gabriel.springboot.app.menuflow.models.dto.request.LoginRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.RegisterRequest;
-import com.gabriel.springboot.app.menuflow.models.dto.request.TableLoginRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.auth.LoginRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.auth.RegisterRequest;
+import com.gabriel.springboot.app.menuflow.models.dto.request.table.TableLoginRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.ApiResponse;
-import com.gabriel.springboot.app.menuflow.models.dto.response.AuthResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.auth.AuthResponse;
 import com.gabriel.springboot.app.menuflow.models.dto.response.MessageResponse;
 import com.gabriel.springboot.app.menuflow.services.AuthService;
 import io.swagger.v3.oas.annotations.Operation;

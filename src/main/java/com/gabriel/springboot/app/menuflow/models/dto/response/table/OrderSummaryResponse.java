@@ -1,4 +1,4 @@
-package com.gabriel.springboot.app.menuflow.models.dto.response;
+package com.gabriel.springboot.app.menuflow.models.dto.response.table;
 
 import com.gabriel.springboot.app.menuflow.models.entities.enums.OrderStatus;
 import lombok.Builder;

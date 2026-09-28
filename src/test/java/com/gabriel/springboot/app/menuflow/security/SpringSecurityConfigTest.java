@@ -1,6 +1,19 @@
 package com.gabriel.springboot.app.menuflow.security;
 
+import com.gabriel.springboot.app.menuflow.config.JacksonConfig;
+import com.gabriel.springboot.app.menuflow.controllers.AuthController;
+import com.gabriel.springboot.app.menuflow.controllers.CategoryController;
+import com.gabriel.springboot.app.menuflow.controllers.DishController;
+import com.gabriel.springboot.app.menuflow.controllers.InvoiceController;
+import com.gabriel.springboot.app.menuflow.controllers.KitchenController;
+import com.gabriel.springboot.app.menuflow.exceptions.handler.CustomAccessDenied;
+import com.gabriel.springboot.app.menuflow.exceptions.handler.CustomAuthenticationEntryPoint;
 import com.gabriel.springboot.app.menuflow.security.filter.JwtAuthenticationFilter;
+import com.gabriel.springboot.app.menuflow.services.AuthService;
+import com.gabriel.springboot.app.menuflow.services.CategoryService;
+import com.gabriel.springboot.app.menuflow.services.DishService;
+import com.gabriel.springboot.app.menuflow.services.InvoiceService;
+import com.gabriel.springboot.app.menuflow.services.OrderService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +26,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest
-@Import(SpringSecurityConfig.class)
+@WebMvcTest(controllers = {AuthController.class, DishController.class, InvoiceController.class, CategoryController.class, KitchenController.class})
+@Import({SpringSecurityConfig.class, CustomAuthenticationEntryPoint.class, CustomAccessDenied.class, JacksonConfig.class})
 class SpringSecurityConfigTest {
 
     @Autowired
@@ -22,6 +35,21 @@ class SpringSecurityConfigTest {
 
     @MockitoBean
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @MockitoBean
+    private AuthService authService;
+
+    @MockitoBean
+    private DishService dishService;
+
+    @MockitoBean
+    private InvoiceService invoiceService;
+
+    @MockitoBean
+    private CategoryService categoryService;
+
+    @MockitoBean
+    private OrderService orderService;
 
     @Test
     @DisplayName("Public: login must be accessible to everyone")
@@ -57,7 +85,7 @@ class SpringSecurityConfigTest {
     @WithMockUser(roles = "KITCHEN")
     @DisplayName("KITCHEN: You have access to the kitchen")
     void kitchenRole_CanAccessKitchen() throws Exception {
-        mockMvc.perform(get("/api/kitchen/orders"))
+        mockMvc.perform(get("/api/kitchen/queue"))
                 .andExpect(status().isOk());
     }
 }

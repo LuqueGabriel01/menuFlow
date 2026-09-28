@@ -178,6 +178,7 @@ class OrderServiceImplTest {
         Order order = Order.of(session);
         Dish dish = availableDish();
         OrderItem item = OrderItem.of(dish, 1);
+        setId(item, OrderItem.class, 1L);
         order.addOrderItem(item);
 
         OrderResponse response = OrderResponse.builder()
@@ -269,6 +270,16 @@ class OrderServiceImplTest {
         assertEquals(2, result.size());
         assertEquals(1L, result.get(0).id());
         assertEquals(2L, result.get(1).id());
+    }
+
+    private void setId(Object entity, Class<?> declaringClass, Long id) {
+        try {
+            java.lang.reflect.Field field = declaringClass.getDeclaredField("id");
+            field.setAccessible(true);
+            field.set(entity, id);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void setCreatedAt(Order order, java.time.LocalDateTime value) {

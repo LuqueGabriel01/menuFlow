@@ -118,6 +118,7 @@ class DishServiceImplTest {
         UpdateDishRequest request = new UpdateDishRequest(1L, "Pizza", "Updated description here", BigDecimal.valueOf(12), true, null, null);
 
         Category category = Category.of();
+        setId(category, Category.class, 1L);
         Dish dish = Dish.of(category, BigDecimal.TEN, null);
         DishResponse response = new DishResponse(1L, 1L, "Mains", "Pizza", "Updated description here",
                 BigDecimal.valueOf(12), true, null, null, null, null, Collections.emptyList(), Collections.emptyList());
@@ -163,5 +164,15 @@ class DishServiceImplTest {
         dishService.deleteDishById(1L);
 
         verify(dishRepository).delete(dish);
+    }
+
+    private void setId(Object entity, Class<?> declaringClass, Long id) {
+        try {
+            java.lang.reflect.Field field = declaringClass.getDeclaredField("id");
+            field.setAccessible(true);
+            field.set(entity, id);
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

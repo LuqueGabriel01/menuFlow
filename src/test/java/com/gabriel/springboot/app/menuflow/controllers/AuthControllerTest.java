@@ -5,7 +5,10 @@ import com.gabriel.springboot.app.menuflow.models.dto.request.auth.RegisterReque
 import com.gabriel.springboot.app.menuflow.models.dto.request.table.TableLoginRequest;
 import com.gabriel.springboot.app.menuflow.models.dto.response.auth.AuthResponse;
 import com.gabriel.springboot.app.menuflow.security.JwtUtil;
+import com.gabriel.springboot.app.menuflow.config.JacksonConfig;
 import com.gabriel.springboot.app.menuflow.security.SpringSecurityConfig;
+import com.gabriel.springboot.app.menuflow.exceptions.handler.CustomAuthenticationEntryPoint;
+import com.gabriel.springboot.app.menuflow.exceptions.handler.CustomAccessDenied;
 import com.gabriel.springboot.app.menuflow.services.AuthService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -29,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(AuthController.class)
 @AutoConfigureMockMvc(addFilters = false)
-@Import(SpringSecurityConfig.class)
+@Import({SpringSecurityConfig.class, CustomAuthenticationEntryPoint.class, CustomAccessDenied.class, JacksonConfig.class})
 class AuthControllerTest {
 
     @Autowired

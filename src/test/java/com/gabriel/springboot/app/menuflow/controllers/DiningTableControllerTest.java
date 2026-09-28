@@ -5,6 +5,7 @@ import com.gabriel.springboot.app.menuflow.models.dto.request.table.UpdateTableR
 import com.gabriel.springboot.app.menuflow.models.dto.response.table.TableResponse;
 import com.gabriel.springboot.app.menuflow.security.JwtUtil;
 import com.gabriel.springboot.app.menuflow.services.DiningTableService;
+import com.gabriel.springboot.app.menuflow.services.impl.QRCodeService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,9 @@ class DiningTableControllerTest {
 
     @MockitoBean
     private DiningTableService diningTableService;
+
+    @MockitoBean
+    private QRCodeService qrCodeService;
 
     @Test
     @DisplayName("Should return a list of all tables with 200 OK")

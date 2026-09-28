@@ -30,6 +30,9 @@ public class SecurityConstants {
     public static final String SESSION_ANY_PATH = "/api/sessions/**";
     public static final String KITCHEN_ANY_PATH = "/api/kitchen/**";
     public static final String INVOICE_ANY_PATH = "/api/invoices/**";
+    public static final String INGREDIENTS_ANY_PATH = "/api/ingredients/**";
+    public static final String ALLERGENS_ANY_PATH = "/api/allergens/**";
+    public static final String ORDER_ANY_PATH = "/api/orders/**";
 
     // --- Roles
     public static final String ROLE_ADMIN = "ADMIN";

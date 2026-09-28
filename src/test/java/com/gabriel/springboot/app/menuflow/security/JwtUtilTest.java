@@ -13,8 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(classes = JwtUtil.class)
 @TestPropertySource(properties = {
-        "jwt.secret=jdhtojHtysualkhYgdmei54K8ohdjiey",
-        "jwt.expiration=3600"
+        "app.jwt.secret=jdhtojHtysualkhYgdmei54K8ohdjiey",
+        "app.jwt.expiration=3600"
 })
 public class JwtUtilTest {
 

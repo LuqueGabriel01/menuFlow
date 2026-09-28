@@ -91,8 +91,10 @@ public class Dish extends BaseEntity{
     }
 
     public void addOrderItem(OrderItem orderItem){
-        orderItems.add(orderItem);
-        orderItem.assignDish(this);
+        if (!this.orderItems.contains(orderItem)) {
+            this.orderItems.add(orderItem);
+            orderItem.assignDish(this);
+        }
     }
 
     public void removeOrderItem(OrderItem orderItem){
@@ -164,5 +166,26 @@ public class Dish extends BaseEntity{
     public void addTranslation(String lang, String name, String description){
         DishTranslation translation = DishTranslation.of(this, lang, name, description);
         translations.add(translation);
+    }
+
+    public String getName(String lang){
+        return translations.stream()
+                .filter(t -> t.getLang().equals(lang))
+                .map(DishTranslation::getName)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public String getDescription(String lang){
+        return translations.stream()
+                .filter(t -> t.getLang().equals(lang))
+                .map(DishTranslation::getDescription)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void updateTranslation(String lang, String name, String description){
+        translations.removeIf(t -> t.getLang().equals(lang));
+        addTranslation(lang, name, description);
     }
 }

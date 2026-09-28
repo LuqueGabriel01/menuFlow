@@ -30,7 +30,7 @@ public class SessionController {
     private final SessionService sessionService;
 
     @PostMapping(ApiPaths.Session.OPEN)
-    @PreAuthorize("hasAnyRole('ADMIN', 'CAJA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CASHIER')")
     @Operation(
             summary = "Open a table session",
             description = "Creates a new active session for a table. ADMIN and CASHIER only."
@@ -49,10 +49,10 @@ public class SessionController {
     }
 
     @PostMapping(ApiPaths.Session.CLOSE)
-    @PreAuthorize("hasAnyRole('ADMIN', 'CAJA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CASHIER')")
     @Operation(
             summary = "Close table session",
-            description = "Closes an active session. ADMIN and CAJA only."
+            description = "Closes an active session. ADMIN and CASHIER only."
     )
     public ResponseEntity<ApiResponse<SessionResponse>> closeSession(
             @Valid @RequestBody CloseSessionRequest request
@@ -67,7 +67,7 @@ public class SessionController {
     }
 
     @GetMapping(ApiPaths.Session.ACTIVE)
-    @PreAuthorize("hasAnyRole('ADMIN', 'CAJA', 'COCINA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CASHIER', 'KITCHEN')")
     @Operation(
             summary = "List active sessions",
             description = "Retrieves all sessions with the OPEN status"
@@ -83,7 +83,7 @@ public class SessionController {
     }
 
     @GetMapping(ApiPaths.Session.ID)
-    @PreAuthorize("hasAnyRole('ADMIN', 'CAJA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CASHIER')")
     @Operation(summary = "Get session by ID")
     public ResponseEntity<ApiResponse<SessionResponse>> getSessionById(
             @PathVariable Long id
@@ -98,7 +98,7 @@ public class SessionController {
     }
 
     @GetMapping(ApiPaths.Session.ID_DETAILS)
-    @PreAuthorize("hasAnyRole('ADMIN', 'CAJA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CASHIER')")
     @Operation(
             summary = "Get session details",
             description = "Retrieves a session containing the order list and total amount"
@@ -134,7 +134,7 @@ public class SessionController {
     }
 
     @GetMapping(ApiPaths.Session.TABLE_TABLE_ID_ACTIVE)
-    @PreAuthorize("hasAnyRole('ADMIN', 'CAJA')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CASHIER')")
     @Operation(
             summary = "Active session on a table",
             description = "Retrieves the OPEN session for a specific table"

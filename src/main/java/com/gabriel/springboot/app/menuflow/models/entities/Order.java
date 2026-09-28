@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class Order extends BaseEntity {
             fetch = FetchType.LAZY,
             orphanRemoval = true
     )
-    private List<OrderItem> orderItems;
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(
             mappedBy = "order",
@@ -66,8 +67,10 @@ public class Order extends BaseEntity {
     }
 
     public void addOrderItem(OrderItem orderItem) {
-        orderItems.add(orderItem);
-        orderItem.assignOrder(this);
+        if (!this.orderItems.contains(orderItem)) {
+            this.orderItems.add(orderItem);
+            orderItem.assignOrder(this);
+        }
     }
 
     public void removeOrderItem(OrderItem orderItem) {
@@ -81,6 +84,7 @@ public class Order extends BaseEntity {
 
     public void assignInvoice(Invoice invoice) {
         if (invoice == null) throw new InvalidInvoiceException();
+        if (this.invoice == invoice) return;
 
         this.invoice = invoice;
         invoice.addOrder(this);

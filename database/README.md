@@ -49,6 +49,14 @@ Start it with: `docker compose up -d`
 
 ---
 
+### Datos de prueba
+
+`database/test-data.sql` rellena el menú (categorías, ingredientes, alérgenos y platos de cada tipo), tres mesas, dos sesiones abiertas y cuatro pedidos en distintos puntos del flujo (uno recién creado, uno en cocina, uno servido pendiente de cobrar y uno ya facturado), además de un usuario por cada rol de personal. Requiere que la app haya arrancado ya al menos una vez en modo `dev` (para que existan los roles y el admin). Uso:
+
+```bash
+mysql -h 127.0.0.1 -P 3307 -u gabriel -p restaurant_db < database/test-data.sql
+```
+
 ### Database Schema Design (E/R Diagram)
 
 ![Entity-Relationship Diagram After](assets/restaurant_erd.png)

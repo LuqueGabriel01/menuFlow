@@ -16,6 +16,26 @@ public final class ApiPaths {
     public static final String PATH_QR_CODE = "/qr/{qrCode}";
     public static final String PATH_ID_TOGGLE = "/{id}/toggle";
 
+    public static final String CATEGORY_PATH = "/api/categories";
+    public static final String INGREDIENT_PATH = "/api/ingredients";
+    public static final String ALLERGEN_PATH = "/api/allergens";
+    public static final String DISH_PATH = "/api/dishes";
+    public static final String AVAILABLE = "/available";
+    public static final String PATH_CATEGORY_ID = "/category/{categoryId}";
+
+    public static final String ORDER_PATH = "/api/orders";
+    public static final String PATH_SESSION_ID = "/session/{sessionId}";
+    public static final String PATH_ID_STATUS = "/{id}/status";
+    public static final String PATH_ID_ITEMS = "/{id}/items";
+    public static final String PATH_ID_ITEM_ID = "/{id}/items/{itemId}";
+    public static final String PATH_ID_CANCEL = "/{id}/cancel";
+
+    public static final String INVOICE_PATH = "/api/invoices";
+    public static final String PATH_ORDER_ID = "/order/{orderId}";
+
+    public static final String KITCHEN_PATH = "/api/kitchen";
+    public static final String QUEUE = "/queue";
+
     public static final class Session {
         public static final String SESSIONS = "/api/sessions";
         public static final String OPEN = "/open";

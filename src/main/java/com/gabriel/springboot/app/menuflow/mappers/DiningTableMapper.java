@@ -1,6 +1,6 @@
 package com.gabriel.springboot.app.menuflow.mappers;
 
-import com.gabriel.springboot.app.menuflow.models.dto.response.TableResponse;
+import com.gabriel.springboot.app.menuflow.models.dto.response.table.TableResponse;
 import com.gabriel.springboot.app.menuflow.models.entities.DiningTable;
 import org.springframework.stereotype.Component;
 

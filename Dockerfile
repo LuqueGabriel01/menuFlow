@@ -1,0 +1,26 @@
+# ---- Build stage ----
+FROM maven:3.9-eclipse-temurin-21 AS build
+WORKDIR /app
+
+# Cache dependencies first (only re-downloaded when pom.xml changes)
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+RUN chmod +x mvnw && ./mvnw -B dependency:go-offline
+
+COPY src src
+RUN ./mvnw -B clean package -DskipTests
+
+# ---- Runtime stage ----
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+# Run as a non-root user
+RUN addgroup -S menuflow && adduser -S menuflow -G menuflow
+USER menuflow:menuflow
+
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -60,4 +60,17 @@ public class Category{
     public List<CategoryTranslation> getTranslations(){
         return Collections.unmodifiableList(this.translations);
     }
+
+    public String getName(String lang){
+        return translations.stream()
+                .filter(t -> t.getLang().equals(lang))
+                .map(CategoryTranslation::getName)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void updateTranslation(String lang, String name){
+        translations.removeIf(t -> t.getLang().equals(lang));
+        addTranslation(lang, name);
+    }
 }

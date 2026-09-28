@@ -4,6 +4,13 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+### Environment / secrets ###
+# Real secrets live only in .env files, never committed.
+# application*.properties are safe to commit: they only reference ${VARS} from .env.
+.env
+.env.*
+!.env.example
+
 ### STS ###
 .apt_generated
 .classpath
@@ -12,15 +19,12 @@ target/
 .settings
 .springBeans
 .sts4-cache
-*.properties
 
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
-*.yml
-.env
 
 ### NetBeans ###
 /nbproject/private/
@@ -34,7 +38,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Ignore ###
-
-!docker-compose.yml

@@ -52,6 +52,7 @@ public class Invoice {
     }
 
     public void addOrder(Order order) {
+        if (this.order == order) return;
         this.order = order;
         order.assignInvoice(this);
     }

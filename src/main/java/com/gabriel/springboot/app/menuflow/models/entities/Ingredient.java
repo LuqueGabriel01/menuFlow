@@ -63,4 +63,17 @@ public class Ingredient {
     public List<IngredientTranslation> getTranslations() {
         return Collections.unmodifiableList(translations);
     }
+
+    public String getName(String lang){
+        return translations.stream()
+                .filter(t -> t.getLang().equals(lang))
+                .map(IngredientTranslation::getName)
+                .findFirst()
+                .orElse(null);
+    }
+
+    public void updateTranslation(String lang, String name){
+        translations.removeIf(t -> t.getLang().equals(lang));
+        addTranslation(lang, name);
+    }
 }
